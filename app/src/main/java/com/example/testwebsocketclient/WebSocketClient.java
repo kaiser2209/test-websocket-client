@@ -22,7 +22,6 @@ public class WebSocketClient extends org.java_websocket.client.WebSocketClient {
     private DefinitionListener definitionListener = null;
     private MediaListener mediaListener = null;
     private boolean connected = false;
-    private boolean autoReconnect = false;
 
     public WebSocketClient(URI serverUri) {
         super(serverUri);
@@ -194,10 +193,6 @@ public class WebSocketClient extends org.java_websocket.client.WebSocketClient {
 
     public boolean isConnected() {
         return this.connected;
-    }
-
-    public void setAutoReconnect(boolean autoReconnect) {
-        this.autoReconnect = autoReconnect;
     }
 
     public static interface OpenHandler {
