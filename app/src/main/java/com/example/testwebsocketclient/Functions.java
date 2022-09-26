@@ -4,6 +4,10 @@ import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
 
+import com.github.kaiser2209.websocketclient.WebSocketApp;
+import com.github.kaiser2209.websocketclient.WebSocketClient;
+import com.github.kaiser2209.websocketclient.WebSocketOptions;
+
 import java.net.URI;
 import java.util.HashMap;
 import java.util.List;
@@ -13,7 +17,7 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 public class Functions {
-    private static WebSocketClient client;
+    private static com.github.kaiser2209.websocketclient.WebSocketClient client;
 
     public static void startWebSocket() {
         URI uri = URI.create("ws://192.168.0.118:4251");
@@ -25,7 +29,16 @@ public class Functions {
         //headers.put("empresaId", "Sa6YOQUOFpAJmHImmbFw");
         //headers.put("deviceId", "tzszjp90EdrrsMIFPnnx");
         headers.put("nick", "Charles");
-        client = new WebSocketClient(uri, headers);
+        WebSocketOptions options = WebSocketOptions.builder()
+                .setServerIP("192.168.0.118")
+                .setServerPort(4251)
+                .addHeader("empresaId", "T2fZy4iQih5jFoiUBI1q")
+                .addHeader("deviceId", "0RJiBnpeAL5gu7YZjhuG")
+                .addHeader("nick", "Charles")
+                .build();
+
+        WebSocketApp app = WebSocketApp.initializeApp(options, "integrador");
+        client = WebSocketClient.getWebSocketClient(app);
 
         client.setOpenHandler(new WebSocketClient.OpenHandler() {
             @Override
